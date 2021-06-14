@@ -1,14 +1,17 @@
 #!/usr/bin/env python
+from model import Game
 import os
 from flask import Flask, render_template
 
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'secret string')
 
+game = Game(10, 4, 6, False)
+
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home.html', game=game)
 
 
 # 404 error handler

@@ -5,4 +5,42 @@
 <ul>
     <li><a href="{{ url_for('home') }}">Home</a></li>
 </ul>
+<table class="table table-bordered">
+    <caption>Game info</caption>
+    <tbody>
+        <tr>
+            <th scope="row">Amount of colors</th>
+            <td>{{ game.amount_of_colors }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Amount of positions</th>
+            <td>{{ game.amount_of_positions }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Amount of guesses</th>
+            <td>{{ game.amount_of_guesses }}</td>
+        </tr>
+        <tr>
+            <th scope="row">Can have double colors</th>
+            <td>{{ game.can_have_double_colors }}</td>
+        </tr>
+    </tbody>
+</table>
+<table class="table table-bordered">
+    <caption>Board</caption>
+    <thead>
+        <tr>
+            <th scope="col">Guess</th>
+            <th scope="col">Result</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for guess, result in game.board.guesses -%}
+        <tr>
+            <th scope="row">{{guess}}</th>
+            <td>{{ result }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
