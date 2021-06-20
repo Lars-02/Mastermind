@@ -18,7 +18,6 @@ app.jinja_env.filters['color'] = Color
 
 if os.path.exists("games.pickle"):
     with open('games.pickle', 'rb') as file:
-        print(1)
         games = pickle.load(file)
 else:
     games = [Game("Game 1", 10, 4, 12, False)]
