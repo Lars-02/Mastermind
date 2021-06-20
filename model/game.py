@@ -7,10 +7,20 @@ from model.guess import Guess
 class Game:
     def __init__(self, name: str, amount_of_guesses: int = 10, amount_of_positions: int = 4, amount_of_colors: int = 6, can_have_double_colors: bool = False) -> None:
         self.name = name
-        self.amount_of_guesses = max(1, amount_of_guesses)
-        self.amount_of_colors = max(1, min(amount_of_colors, 12))
-        self.amount_of_positions = max(
-            1, min(amount_of_colors, amount_of_positions))
+
+        if 1 > amount_of_guesses:
+            raise ValueError("amount_of_guesses cannot be less then 1")
+
+        if 1 > amount_of_colors > 12:
+            raise ValueError("amount_of_colors must be between 1 and 12")
+
+        if 1 > amount_of_positions > amount_of_colors:
+            raise ValueError(
+                "amount_of_positions must be between 1 and the amount of colors")
+
+        self.amount_of_guesses = amount_of_guesses
+        self.amount_of_colors = amount_of_colors
+        self.amount_of_positions = amount_of_positions
         self.can_have_double_colors = can_have_double_colors
         self.guesses: list = []
 
