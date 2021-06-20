@@ -5,7 +5,8 @@ from model.guess import Guess
 
 
 class Game:
-    def __init__(self, amount_of_guesses, amount_of_positions, amount_of_colors, can_have_double_colors):
+    def __init__(self, name, amount_of_guesses, amount_of_positions, amount_of_colors, can_have_double_colors):
+        self.name = name
         self.amount_of_guesses = max(1, amount_of_guesses)
         self.amount_of_colors = max(1, min(amount_of_colors, 12))
         self.amount_of_positions = max(1, min(amount_of_colors, amount_of_positions))
