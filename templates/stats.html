@@ -6,18 +6,37 @@
 
     <div class="container">
         <div class="row gap-4">
-            <div class="col-3 bg-white rounded p-3">
+            <div class="col-5 bg-white rounded p-3">
                 <h2>Games won</h2>
                 {{ games_won|string +  ' / ' + games|count|string }}
             </div>
-            <div class="col-3 bg-white rounded p-3">
+            <div class="col-5 bg-white rounded p-3">
                 <h2>Guesses</h2>
                 {{ guesses|string }}
             </div>
-            {% for player, games in games_by_name.items() %}
+            {% for player, player_games in games_by_name.items() %}
                 <div class="col-3 bg-white rounded p-3">
                     <h2>Games of {{ player }}</h2>
-                    <p>{{ games|count|string }}</p>
+                    <ul>
+                        <li>Total games {{ player_games|count|string }}</li>
+                    </ul>
+                    {% for i, game in player_games|enumerate %}
+                        <h3>Game {{ i + 1 }}</h3>
+                        <ul>
+                            {% if game.has_won() %}
+                                <li class="text-success fw-bold">Has won</li>
+                            {% endif %}
+                            {% if game.has_lost() %}
+                                <li class="text-danger fw-bold">Has lost</li>
+                            {% endif %}
+                            <li>Amount of colors {{ game.amount_of_colors }}</li>
+                            <li>Amount of guesses {{ game.guesses|length }} / {{ game.amount_of_guesses }}</li>
+                            <li>Amount of positions {{ game.amount_of_positions }}</li>
+                            {% if game.cheated %}
+                                <li class="text-warning fw-bold">Cheated</li>
+                            {% endif %}
+                        </ul>
+                    {% endfor %}
                 </div>
             {% endfor %}
         </div>
