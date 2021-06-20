@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% from "_formhelpers.html" import render_field %}
+    <form method=POST>
+        <dl>
+            {{ render_field(form.name) }}
+            {{ render_field(form.colors) }}
+            {{ render_field(form.positions) }}
+            {{ render_field(form.guesses) }}
+            {{ render_field(form.double_colors) }}
+        </dl>
+        <p><input type=submit value=Create>
+    </form>
+
+{% endblock %}

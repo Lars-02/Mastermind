@@ -5,13 +5,22 @@
     <h1>Home</h1>
 
     <div class="container">
+        <a href="{{ url_for('create') }}">
+            <button class="btn btn-success m-4 fs-5 fw-bolder">Create game</button>
+        </a>
+    </div>
+
+    <div class="container">
         <div class="row">
-            {% for game in games %}
+            {% for i, game in games|enumerate %}
                 <div class="col-4 bg-white rounded p-3">
                     <h2>{{ game.name }}</h2>
                     <p>Amount of colors {{ game.amount_of_colors }}</p>
                     <p>Amount of guesses {{ game.amount_of_guesses }}</p>
                     <p>Amount of positions {{ game.amount_of_positions }}</p>
+                    <a href="{{ url_for('game', game=game, game_id=i) }}">
+                        <button class="btn btn-primary fs-6 fw-bolder">Play game</button>
+                    </a>
                 </div>
             {% endfor %}
         </div>
