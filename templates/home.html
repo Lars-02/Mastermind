@@ -35,13 +35,13 @@
         </tr>
     </thead>
     <tbody>
-        {% for _ in range(game.amount_of_guesses - game.board.guesses|length) -%}
+        {% for _ in range(game.amount_of_guesses - game.guesses|length) -%}
         <tr>
             <th scope="row"></th>
             <td></td>
         </tr>
         {% endfor %}
-        {% for guess, result in game.board.guesses -%}
+        {% for guess, result in game.guesses -%}
         <tr>
             <th scope="row">
                 {% for g in guess -%}

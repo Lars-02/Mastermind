@@ -21,7 +21,8 @@ def home():
 
 @app.route('/guess/', methods=['POST'])
 def submit_guess():
-    game.board.add_guess(Guess(tuple(map(lambda i: Color(int(i)), list(request.form.values())))))
+    print(tuple(map(lambda i: Color(int(i)), list(request.form.values()))))
+    game.add_guess(Guess(tuple(Color(int(n)) for n in list(request.form.values()))))
     return redirect(url_for('home'))
 
 

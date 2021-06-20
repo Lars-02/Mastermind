@@ -1,4 +1,7 @@
-from model.board import Board
+from random import randint, sample
+
+from model.color import Color
+from model.guess import Guess
 
 
 class Game:
@@ -7,6 +10,24 @@ class Game:
         self.amount_of_colors = amount_of_colors
         self.amount_of_positions = amount_of_positions
         self.can_have_double_colors = can_have_double_colors
+        self.guesses: list = []
 
-        self.board = Board(self.amount_of_positions,
-                           self.amount_of_colors, self.can_have_double_colors)
+        if can_have_double_colors:
+            self.correct_guess = Guess(tuple(Color(randint(0, amount_of_colors)) for _ in range(amount_of_positions)))
+        else:
+            self.correct_guess = Guess(tuple(Color(n) for n in sample(range(amount_of_colors), amount_of_positions)))
+
+        print(self.correct_guess)
+
+    def add_guess(self, guess: Guess) -> None:
+        # if guess == self.correct_guess:
+        #     self.guesses.append((guess, True))
+        #     return
+
+        self.guesses.append((guess, sorted(
+                (
+                    [c in self.correct_guess for c in guess],
+                    [g == gc for g, gc in zip(guess, self.correct_guess)]
+                ),
+            ))
+        )
