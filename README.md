@@ -15,5 +15,5 @@ python -m pip install -r requirements.txt
 To run the application, run the following:
 
 ```bash
-python run.py
+python app.py
 ```
