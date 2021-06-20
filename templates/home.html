@@ -43,7 +43,12 @@
         {% endfor %}
         {% for guess, result in game.board.guesses -%}
         <tr>
-            <th scope="row">{{guess}}</th>
+            <th scope="row">
+                {% for g in guess -%}
+                <div class="circle border border-dark rounded-circle d-inline-block" style="background-color: {{ g }};">
+                </div>
+                {% endfor %}
+            </th>
             <td>
                 {% for g, exists, correct_place in guess|zip(result[0], result[1]) if exists -%}
                 <div class="circle border border-dark rounded-circle d-inline-block"
