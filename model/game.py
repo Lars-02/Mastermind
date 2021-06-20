@@ -5,11 +5,12 @@ from model.guess import Guess
 
 
 class Game:
-    def __init__(self, name, amount_of_guesses, amount_of_positions, amount_of_colors, can_have_double_colors):
+    def __init__(self, name: str, amount_of_guesses: int = 10, amount_of_positions: int = 4, amount_of_colors: int = 6, can_have_double_colors: bool = False) -> None:
         self.name = name
         self.amount_of_guesses = max(1, amount_of_guesses)
         self.amount_of_colors = max(1, min(amount_of_colors, 12))
-        self.amount_of_positions = max(1, min(amount_of_colors, amount_of_positions))
+        self.amount_of_positions = max(
+            1, min(amount_of_colors, amount_of_positions))
         self.can_have_double_colors = can_have_double_colors
         self.guesses: list = []
 
@@ -33,4 +34,4 @@ class Game:
                 [g == gc for g, gc in zip(guess, self.correct_guess)]
             ),
         ))
-                            )
+        )
