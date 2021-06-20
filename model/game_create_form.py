@@ -1,5 +1,5 @@
 from wtforms import Form, BooleanField, StringField, validators, IntegerField
-from wtforms.validators import NumberRange, ValidationError
+from wtforms.validators import NumberRange, ValidationError, Length, DataRequired
 
 
 class LessThen(object):
@@ -25,8 +25,8 @@ class LessThen(object):
 
 
 class GameCreateForm(Form):
-    name = StringField('Name', [validators.Length(min=4, max=25)])
-    colors = IntegerField('Colors', [validators.NumberRange(min=1, max=12)])
-    positions = IntegerField('Positions', validators=[LessThen('colors'), NumberRange(min=1, max=12)])
-    guesses = IntegerField('Guesses', [validators.NumberRange(min=1, max=30)])
+    name = StringField('Nickname', validators=[DataRequired(), Length(min=4, max=25)])
+    colors = IntegerField('Colors', validators=[DataRequired(), NumberRange(min=1, max=12)])
+    positions = IntegerField('Positions', validators=[DataRequired(), LessThen('colors'), NumberRange(min=1, max=12)])
+    guesses = IntegerField('Guesses', validators=[DataRequired(), NumberRange(min=1, max=30)])
     double_colors = BooleanField('Double colors')
