@@ -32,15 +32,11 @@ class Game:
             self.correct_guess = Guess(
                 tuple(Color(n) for n in sample(range(self.amount_of_colors), self.amount_of_positions)))
 
-        self.correct_guess = Guess([Color(2), Color(1), Color(3), Color(3)])
-        self.add_guess(Guess([Color(n) for n in range(1, 5)]))
-        self.add_guess(Guess([Color(n) for n in range(1, 5)]))
         print(self.correct_guess)
 
     def add_guess(self, guess: Guess) -> None:
-        # if guess == self.correct_guess:
-        #     self.guesses.append((guess, True))
-        #     return
-
         self.guesses.append((guess, sorted([Correct.CORRECT if g == gc else Correct.INCORRECT_PLACE if g in self.correct_guess else Correct.INCORRECT for g,
                                             gc in zip(guess, self.correct_guess)])))
+
+    def has_won(self) -> bool:
+        return [Correct.CORRECT for _ in range(self.amount_of_positions)] in [result for _, result in self.guesses]
