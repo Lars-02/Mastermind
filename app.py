@@ -1,9 +1,10 @@
 #!/usr/bin/env python
-from model.correct import Correct
 import os
+import pickle
 
-from flask import Flask, render_template, request, redirect, url_for, abort, flash
+from flask import Flask, render_template, request, redirect, url_for, abort, flash, Response
 
+from model.correct import Correct
 from model.color import Color
 from model.game import Game
 from model.game_create_form import GameCreateForm
@@ -15,7 +16,12 @@ app.jinja_env.filters['zip'] = zip
 app.jinja_env.filters['enumerate'] = enumerate
 app.jinja_env.filters['color'] = Color
 
-games = [Game("Game 1", 10, 4, 12, False)]
+if os.path.exists("games.pickle"):
+    with open('games.pickle', 'rb') as file:
+        print(1)
+        games = pickle.load(file)
+else:
+    games = [Game("Game 1", 10, 4, 12, False)]
 
 
 @app.context_processor
@@ -67,6 +73,13 @@ def submit_guess(game_id):
     games[game_id - 1].add_guess(Guess(tuple(Color(int(n))
                                              for n in list(request.form.values()))))
     return redirect(url_for('game', game_id=game_id))
+
+
+@app.route('/save')
+def save():
+    with open('games.pickle', 'wb') as file:
+        pickle.dump(games, file, protocol=pickle.HIGHEST_PROTOCOL)
+    return redirect(url_for('home'))
 
 
 # 404 error handler
