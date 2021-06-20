@@ -2,7 +2,7 @@
 from model.color import Color
 from model.game import Game
 import os
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 
 from model.guess import Guess
 
@@ -22,7 +22,7 @@ def home():
 @app.route('/guess/', methods=['POST'])
 def submit_guess():
     game.board.add_guess(Guess(tuple(map(lambda i: Color(int(i)), list(request.form.values())))))
-    return render_template('home.html', game=game)
+    return redirect(url_for('home'))
 
 
 # 404 error handler
