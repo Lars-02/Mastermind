@@ -38,7 +38,7 @@
                 <td></td>
             </tr>
         {% endfor %}
-        {% for guess, result in game.guesses -%}
+        {% for guess, result in game.guesses|reverse -%}
             <tr>
                 <th scope="row">
                     {% for g in guess -%}
