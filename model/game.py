@@ -1,4 +1,5 @@
 from random import randint, sample
+from datetime import datetime
 
 from model.color import Color
 from model.correct import Correct
@@ -6,11 +7,12 @@ from model.guess import Guess
 
 
 class Game:
-    def __init__(self, nickname: str, amount_of_guesses: int = 10, amount_of_positions: int = 4, amount_of_colors: int = 6,
+    def __init__(self, nickname: str, amount_of_guesses: int = 10, amount_of_positions: int = 4,
+                 amount_of_colors: int = 6,
                  can_have_double_colors: bool = False) -> None:
-        self.nickname = nickname
 
-        from datetime import datetime
+        self.nickname = nickname
+        self.cheated = False
         self.started = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
 
         if not 0 < amount_of_guesses:
@@ -46,3 +48,6 @@ class Game:
 
     def has_won(self) -> bool:
         return [Correct.CORRECT for _ in range(self.amount_of_positions)] in [result for _, result in self.guesses]
+
+    def has_lost(self) -> bool:
+        return (not self.has_won()) and len(self.guesses) >= self.amount_of_guesses

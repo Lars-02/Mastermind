@@ -69,7 +69,10 @@ def game(game_id):
 
 @app.route('/game/<int:game_id>/guess', methods=['POST'])
 def submit_guess(game_id):
-    games[game_id - 1].add_guess(Guess(tuple(Color(int(n))
+    if game_id < 0 or game_id > len(games) - 1:
+        abort(404)
+    if (not games[game_id].has_won()) or (not games[game_id].has_lost):
+        games[game_id].add_guess(Guess(tuple(Color(int(n))
                                              for n in list(request.form.values()))))
     return redirect(url_for('game', game_id=game_id))
 
