@@ -4,11 +4,9 @@
 
     <h1>Home</h1>
 
-    <div class="container">
-        <a class="btn btn-success m-4 fs-5 fw-bolder" href="{{ url_for('create') }}">Create game</a>
-    </div>
-    <div class="container">
-        <a class="btn btn-success m-4 fs-5 fw-bolder" href="{{ url_for('save') }}">Save all games</a>
+    <div class="d-flex justify-content-start">
+        <a class="btn btn-success m-4 fs-5 fw-bold" href="{{ url_for('create') }}">Create game</a>
+        <a class="btn btn-success m-4 fs-5 fw-bold" href="{{ url_for('save') }}">Save all games</a>
     </div>
 
     <div class="container">
@@ -16,12 +14,19 @@
             {% for i, game in games|enumerate %}
                 <div class="col-3 bg-white rounded p-3">
                     <h2>{{ (i + 1)|string + '. Game of ' + game.nickname }}</h2>
-                    <ul>
-                        <li>Amount of colors {{ game.amount_of_colors }}</li>
-                        <li>Amount of guesses {{ game.amount_of_guesses }}</li>
-                        <li>Amount of positions {{ game.amount_of_positions }}</li>
-                    </ul>
-                    <a class="btn btn-primary fs-6 fw-bolder" href="{{ url_for('game', game_id=i) }}">Play game</a>
+                    {% if game.has_won() %}
+                        <li class="text-success fw-bold">Has won</li>
+                    {% endif %}
+                    {% if game.has_lost() %}
+                        <li class="text-danger fw-bold">Has lost</li>
+                    {% endif %}
+                    <li>Amount of colors {{ game.amount_of_colors }}</li>
+                    <li>Amount of guesses {{ game.guesses|length }} / {{ game.amount_of_guesses }}</li>
+                    <li>Amount of positions {{ game.amount_of_positions }}</li>
+                    {% if game.cheated %}
+                        <li class="text-warning fw-bold">Cheated</li>
+                    {% endif %}
+                    <a class="btn btn-primary fs-6 fw-bolder m-2" href="{{ url_for('game', game_id=i) }}">Play game</a>
                 </div>
             {% endfor %}
         </div>
