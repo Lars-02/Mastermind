@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h1>Home</h1>
+
+    <div class="container">
+        <div class="row">
+            {% for game in games %}
+                <div class="col-4 bg-white rounded p-3">
+                    <h2>{{ game.name }}</h2>
+                    <p>Amount of colors {{ game.amount_of_colors }}</p>
+                    <p>Amount of guesses {{ game.amount_of_guesses }}</p>
+                    <p>Amount of positions {{ game.amount_of_positions }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
