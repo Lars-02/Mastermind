@@ -28,5 +28,5 @@ class GameCreateForm(Form):
     name = StringField('Nickname', validators=[DataRequired(), Length(min=4, max=25)])
     colors = IntegerField('Colors', validators=[DataRequired(), NumberRange(min=1, max=12)])
     positions = IntegerField('Positions', validators=[DataRequired(), LessThen('colors'), NumberRange(min=1, max=12)])
-    guesses = IntegerField('Guesses', validators=[DataRequired(), NumberRange(min=1, max=30)])
+    guesses = IntegerField('Guesses', validators=[DataRequired(), NumberRange(min=1, max=20)])
     double_colors = BooleanField('Double colors')
