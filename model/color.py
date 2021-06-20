@@ -1,6 +1,6 @@
 class Color:
     def __init__(self, n: int) -> None:
-        if n < 0 or n > 10:
+        if n < 0 or n > 11:
             raise ValueError("Color number too high or low")
         self.n = n
 
@@ -33,3 +33,5 @@ class Color:
             return "aqua"
         elif self.n == 10:
             return "burlywood"
+        elif self.n == 11:
+            return "purple"

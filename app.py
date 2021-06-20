@@ -11,7 +11,7 @@ app.secret_key = os.getenv('SECRET_KEY', 'secret string')
 app.jinja_env.filters['zip'] = zip
 app.jinja_env.filters['color'] = Color
 
-game = Game(10, 10, 10, False)
+game = Game(10, 4, 12, False)
 
 
 @app.route('/')
