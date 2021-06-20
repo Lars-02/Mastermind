@@ -61,4 +61,19 @@
         {% endfor %}
     </tbody>
 </table>
+
+    <form action="{{ url_for('submit_guess') }}" method="POST">
+        <div class="d-flex gap-3">
+            {% for i in range(game.amount_of_positions) -%}
+                <select class="form-select" aria-label="Select color" name="{{ i }}">
+                    {% for n in range(game.amount_of_colors) -%}
+                        <option value="{{ n }}">{{ n|color }}</option>
+                    {% endfor %}
+                </select>
+            {% endfor %}
+        </div>
+
+        <button class="btn btn-secondary my-3" type="submit">Guess</button>
+    </form>
+
 {% endblock %}
