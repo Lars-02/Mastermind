@@ -35,10 +35,23 @@
         </tr>
     </thead>
     <tbody>
+        {% for _ in range(game.amount_of_guesses - game.board.guesses|length) -%}
+        <tr>
+            <th scope="row"></th>
+            <td></td>
+        </tr>
+        {% endfor %}
         {% for guess, result in game.board.guesses -%}
         <tr>
             <th scope="row">{{guess}}</th>
-            <td>{{ result }}</td>
+            <td>
+                {% for g, exists, correct_place in guess|zip(result[0], result[1]) if exists -%}
+                <div class="circle border border-dark rounded-circle d-inline-block"
+                    style="background-color: {{ "red" if correct_place else "grey" }};">
+                </div>
+                {% endfor %}
+                <!-- {{ result }} -->
+            </td>
         </tr>
         {% endfor %}
     </tbody>

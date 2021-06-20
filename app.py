@@ -1,10 +1,12 @@
 #!/usr/bin/env python
-from model import Game
+from model.game import Game
 import os
 from flask import Flask, render_template
 
+
 app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY', 'secret string')
+app.jinja_env.filters['zip'] = zip
 
 game = Game(10, 4, 6, False)
 
