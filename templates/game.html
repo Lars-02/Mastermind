@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Game {{ game.name }}</h1>
-    <table class="table table-bordered">
+    <h1>Game of {{ game.nickname }}</h1>
+    <table class="table table-bordered bg-white">
         <caption>Game info</caption>
         <tbody>
         <tr>
@@ -23,7 +23,7 @@
         </tr>
         </tbody>
     </table>
-    <table class="table table-bordered">
+    <table class="table table-bordered bg-white">
         <caption>Board</caption>
         <thead>
         <tr>

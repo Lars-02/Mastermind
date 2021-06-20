@@ -40,7 +40,7 @@
 
     <main class="container my-3">
         {% for message in get_flashed_messages() %}
-        <div class="alert">{{ message }}</div>
+        <div class="alert alert-success" role="alert">{{ message }}</div>
         {% endfor %}
         {% block content %}{% endblock %}
     </main>
@@ -48,7 +48,7 @@
     <footer class="text-center text-lg-start bg-white text-muted p-5 mt-auto">
         {% block footer %}
         <small> &copy; 2021 <a href="https://maik.dev" title="Written by Maik de Kruif">Maik de Kruif</a> /
-            <a href="https://lars02.dev" title="With help from Lars Meeuwsen">Lars Meeuwsen</a> /
+            <a href="https://lars02.dev" title="Written by Lars Meeuwsen">Lars Meeuwsen</a> /
             <a href="https://github.com/maikka39/Mastermind" title="Fork me on GitHub">GitHub</a>
         </small>
         {% endblock %}

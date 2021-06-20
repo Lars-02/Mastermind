@@ -2,4 +2,25 @@
 
 {% block content %}
 
+    <h1>Statistics</h1>
+
+    <div class="container">
+        <div class="row gap-4">
+            <div class="col-3 bg-white rounded p-3">
+                <h2>Games won</h2>
+                {{ games_won|string +  ' / ' + games|count|string }}
+            </div>
+            <div class="col-3 bg-white rounded p-3">
+                <h2>Guesses</h2>
+                {{ guesses|string }}
+            </div>
+            {% for player, games in games_by_name.items() %}
+                <div class="col-3 bg-white rounded p-3">
+                    <h2>Games of {{ player }}</h2>
+                    <p>{{ games|count|string }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
 {% endblock %}

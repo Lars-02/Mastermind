@@ -1,13 +1,17 @@
-from model.correct import Correct
 from random import randint, sample
 
 from model.color import Color
+from model.correct import Correct
 from model.guess import Guess
 
 
 class Game:
-    def __init__(self, name: str, amount_of_guesses: int = 10, amount_of_positions: int = 4, amount_of_colors: int = 6, can_have_double_colors: bool = False) -> None:
-        self.name = name
+    def __init__(self, nickname: str, amount_of_guesses: int = 10, amount_of_positions: int = 4, amount_of_colors: int = 6,
+                 can_have_double_colors: bool = False) -> None:
+        self.nickname = nickname
+
+        from datetime import datetime
+        self.started = datetime.now()
 
         if not 0 < amount_of_guesses:
             raise ValueError("amount_of_guesses cannot be less then 1")
@@ -35,8 +39,10 @@ class Game:
         print(self.correct_guess)
 
     def add_guess(self, guess: Guess) -> None:
-        self.guesses.append((guess, sorted([Correct.CORRECT if g == gc else Correct.INCORRECT_PLACE if g in self.correct_guess else Correct.INCORRECT for g,
-                                            gc in zip(guess, self.correct_guess)])))
+        self.guesses.append((guess, sorted(
+            [Correct.CORRECT if g == gc else Correct.INCORRECT_PLACE if g in self.correct_guess else Correct.INCORRECT
+             for g,
+                 gc in zip(guess, self.correct_guess)])))
 
     def has_won(self) -> bool:
         return [Correct.CORRECT for _ in range(self.amount_of_positions)] in [result for _, result in self.guesses]
