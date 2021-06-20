@@ -47,9 +47,9 @@
                 {% endfor %}
             </th>
             <td>
-                {% for g, exists, correct_place in guess|zip(result[0], result[1]) if exists -%}
+                {% for correct in result if correct != Correct.INCORRECT -%}
                 <div class="circle border border-dark rounded-circle d-inline-block"
-                    style="background-color: {{ "black" if correct_place else "white" }};">
+                    style="background-color: {{ "black" if correct == Correct.CORRECT else "white" }};">
                 </div>
                 {% endfor %}
             </td>
@@ -58,18 +58,18 @@
     </tbody>
 </table>
 
-    <form action="{{ url_for('submit_guess') }}" method="POST">
-        <div class="d-flex gap-3">
-            {% for i in range(game.amount_of_positions) -%}
-                <select class="form-select" aria-label="Select color" name="{{ i }}">
-                    {% for n in range(game.amount_of_colors) -%}
-                        <option value="{{ n }}">{{ n|color }}</option>
-                    {% endfor %}
-                </select>
+<form action="{{ url_for('submit_guess') }}" method="POST">
+    <div class="d-flex gap-3">
+        {% for i in range(game.amount_of_positions) -%}
+        <select class="form-select" aria-label="Select color" name="{{ i }}">
+            {% for n in range(game.amount_of_colors) -%}
+            <option value="{{ n }}">{{ n|color }}</option>
             {% endfor %}
-        </div>
+        </select>
+        {% endfor %}
+    </div>
 
-        <button class="btn btn-secondary my-3" type="submit">Guess</button>
-    </form>
+    <button class="btn btn-secondary my-3" type="submit">Guess</button>
+</form>
 
 {% endblock %}

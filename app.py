@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from model.correct import Correct
 import os
 import pickle
 
@@ -14,6 +15,11 @@ app.jinja_env.filters['zip'] = zip
 app.jinja_env.filters['color'] = Color
 
 games = [Game("Game 1", 10, 4, 12, False)]
+
+
+@app.context_processor
+def inject_context():
+    return dict(Correct=Correct)
 
 
 @app.route('/')
@@ -36,7 +42,8 @@ def game(game_id):
 @app.route('/guess/', methods=['POST'])
 def submit_guess():
     print(tuple(map(lambda i: Color(int(i)), list(request.form.values()))))
-    game.add_guess(Guess(tuple(Color(int(n)) for n in list(request.form.values()))))
+    game.add_guess(Guess(tuple(Color(int(n))
+                   for n in list(request.form.values()))))
     return redirect(url_for('home'))
 
 
