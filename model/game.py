@@ -11,7 +11,7 @@ class Game:
         self.nickname = nickname
 
         from datetime import datetime
-        self.started = datetime.now()
+        self.started = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
 
         if not 0 < amount_of_guesses:
             raise ValueError("amount_of_guesses cannot be less then 1")
