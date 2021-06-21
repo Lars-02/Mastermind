@@ -11,10 +11,6 @@ class Game:
                  amount_of_colors: int = 6,
                  can_have_double_colors: bool = False) -> None:
 
-        self.nickname = nickname
-        self.cheated = False
-        self.started = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
-
         if not 0 < amount_of_guesses:
             raise ValueError("amount_of_guesses cannot be less then 1")
 
@@ -25,11 +21,15 @@ class Game:
             raise ValueError(
                 "amount_of_positions must be between 1 and the amount of colors")
 
+        self.nickname = nickname
         self.amount_of_guesses = amount_of_guesses
         self.amount_of_colors = amount_of_colors
         self.amount_of_positions = amount_of_positions
         self.can_have_double_colors = can_have_double_colors
+
         self.guesses: list = []
+        self.cheated = False
+        self.started = datetime.now().strftime("%m/%d/%Y, %H:%M:%S")
 
         if can_have_double_colors:
             self.correct_guess = Guess(
