@@ -1,27 +1,25 @@
-from wtforms import Form, BooleanField, StringField, validators, IntegerField
+from wtforms import Form, BooleanField, StringField, IntegerField
 from wtforms.validators import NumberRange, ValidationError, Length, DataRequired
 
 
 class LessThen(object):
-    def __init__(self, fieldname, message=None):
+    def __init__(self, fieldname: dict, message: str = None) -> None:
         self.fieldname = fieldname
         self.message = message
 
-    def __call__(self, form, field):
+    def __call__(self, form: list, field: str) -> None:
         try:
             other = form[self.fieldname]
         except KeyError:
-            raise ValidationError(field.gettext("Invalid field name '%s'.") % self.fieldname)
-        if field.data > other.data:
-            d = {
-                'other_label': hasattr(other, 'label') and other.label.text or self.fieldname,
-                'other_name': self.fieldname
-            }
-            message = self.message
-            if message is None:
-                message = field.gettext('Field must be equal or lower to %(other_name)s.')
+            raise ValidationError(field.gettext(f"Invalid field name '{self.fieldname}'."))
 
-            raise ValidationError(message % d)
+        if field.data > other.data:
+            message = self.message
+
+            if message is None:
+                message = field.gettext(f"Field must be equal to or less then the amount of {self.fieldname}.")
+
+            raise ValidationError(message)
 
 
 class GameCreateForm(Form):
