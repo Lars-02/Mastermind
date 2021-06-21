@@ -62,18 +62,29 @@ def create():
 
 @app.route('/game/<int:game_id>')
 def game(game_id):
-    if game_id < 0 or game_id > len(games) - 1:
+    if not 0 <= game_id < len(games):
         abort(404)
     return render_template('game.html', game=games[game_id], game_id=game_id)
 
 
 @app.route('/game/<int:game_id>/guess', methods=['POST'])
 def submit_guess(game_id):
-    if game_id < 0 or game_id > len(games) - 1:
+    if not 0 <= game_id < len(games):
         abort(404)
     if (not games[game_id].has_won()) or (not games[game_id].has_lost):
         games[game_id].add_guess(Guess(tuple(Color(int(n))
                                              for n in list(request.form.values()))))
+    return redirect(url_for('game', game_id=game_id))
+
+
+@app.route('/game/<int:game_id>/cheat')
+def cheat(game_id):
+    if not 0 <= game_id < len(games):
+        abort(404)
+
+    if (not games[game_id].has_won()) or (not games[game_id].has_lost):
+        games[game_id].cheated = True
+
     return redirect(url_for('game', game_id=game_id))
 
 

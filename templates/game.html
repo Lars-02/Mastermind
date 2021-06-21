@@ -47,8 +47,18 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row"><a class="btn btn-primary fs-6 fw-bolder" href="{{ "" }}">Cheat</a></th>
+        <tr class="{{ "bg-success" if game.cheated or game.has_won() else "bg-danger" if not game.cheated }}">
+            <th scope="row">
+                {% if not game.cheated and not game.has_won() %}
+                    <a class="btn btn-primary fs-6 fw-bolder" href="{{ url_for('cheat', game_id=game_id) }}">Cheat</a>
+                {% elif game.cheated or game.has_won() %}
+                    {% for g in game.correct_guess -%}
+                        <div class="circle border border-dark rounded-circle d-inline-block"
+                            style="background-color: {{ g }};">
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </th>
             <td></td>
         </tr>
         {% for _ in range(game.amount_of_guesses - game.guesses|length) -%}
