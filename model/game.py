@@ -38,10 +38,6 @@ class Game:
             self.correct_guess = Guess(
                 tuple(Color(n) for n in sample(range(self.amount_of_colors), self.amount_of_positions)))
 
-        self.correct_guess = Guess([Color(0), Color(0), Color(2), Color(3)])
-
-        print(self.correct_guess)
-
     def add_guess(self, guess: Guess) -> None:
         correct = []
         checked = []
