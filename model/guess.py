@@ -1,9 +1,13 @@
+from model.color import Color
 from typing import Generator
 
 
 class Guess:
     def __init__(self, colors: tuple) -> None:
         self.colors = colors
+
+    def count(self, color: Color):
+        return self.colors.count(color)
 
     def __eq__(self, o: object) -> bool:
         return self.colors == o.colors
