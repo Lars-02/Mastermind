@@ -13,19 +13,21 @@
         <div class="row gap-4">
             {% for i, game in games|enumerate %}
                 <div class="col-3 bg-white rounded p-3">
-                    <h2>{{ (i + 1)|string + '. Game of ' + game.nickname }}</h2>
-                    {% if game.has_won() %}
-                        <li class="text-success fw-bold">Has won</li>
-                    {% endif %}
-                    {% if game.has_lost() %}
-                        <li class="text-danger fw-bold">Has lost</li>
-                    {% endif %}
-                    <li>Amount of colors {{ game.amount_of_colors }}</li>
-                    <li>Amount of guesses {{ game.guesses|length }} / {{ game.amount_of_guesses }}</li>
-                    <li>Amount of positions {{ game.amount_of_positions }}</li>
-                    {% if game.cheated %}
-                        <li class="text-warning fw-bold">Cheated</li>
-                    {% endif %}
+                    <h2>{{ (i + 1)|string }}. Game of {{ game.player }}</h2>
+                    <ul>
+                        {% if game.has_won() %}
+                            <li class="text-success fw-bold">Has won</li>
+                        {% endif %}
+                        {% if game.has_lost() %}
+                            <li class="text-danger fw-bold">Has lost</li>
+                        {% endif %}
+                        <li>Amount of colors {{ game.amount_of_colors }}</li>
+                        <li>Amount of guesses {{ game.guesses|length }} / {{ game.amount_of_guesses }}</li>
+                        <li>Amount of positions {{ game.amount_of_positions }}</li>
+                        {% if game.cheated %}
+                            <li class="text-warning fw-bold">Cheated</li>
+                        {% endif %}
+                    </ul>
                     <a class="btn btn-primary fs-6 fw-bolder m-2" href="{{ url_for('game', game_id=i) }}">Play game</a>
                 </div>
             {% endfor %}

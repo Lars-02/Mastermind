@@ -4,8 +4,8 @@ class Color:
             raise ValueError("Color number too high or low")
         self.n = n
 
-    def __eq__(self, o: object) -> bool:
-        return self.n == o.n
+    def __eq__(self, other: object) -> bool:
+        return hasattr(other, 'n') and self.n == other.n
 
     def __repr__(self) -> str:
         return f"Color({ self.n })"

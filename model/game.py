@@ -1,3 +1,4 @@
+from model.player import Player
 from random import randint, sample
 from datetime import datetime
 
@@ -7,7 +8,7 @@ from model.guess import Guess
 
 
 class Game:
-    def __init__(self, nickname: str, amount_of_guesses: int = 10, amount_of_positions: int = 4,
+    def __init__(self, player: Player, amount_of_guesses: int = 10, amount_of_positions: int = 4,
                  amount_of_colors: int = 6,
                  can_have_double_colors: bool = False) -> None:
 
@@ -21,7 +22,7 @@ class Game:
             raise ValueError(
                 "amount_of_positions must be between 1 and the amount of colors")
 
-        self.nickname = nickname
+        self.player = player
         self.amount_of_guesses = amount_of_guesses
         self.amount_of_colors = amount_of_colors
         self.amount_of_positions = amount_of_positions

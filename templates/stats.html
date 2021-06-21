@@ -14,7 +14,7 @@
                 <h2>Guesses</h2>
                 {{ guesses|string }}
             </div>
-            {% for player, player_games in games_by_name.items() %}
+            {% for player, player_games in games_by_player.items() %}
                 <div class="col-3 bg-white rounded p-3">
                     <h2>Games of {{ player }}</h2>
                     <ul>

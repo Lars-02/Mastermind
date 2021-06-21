@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from model.player import Player
 import os
 import pickle
 
@@ -20,7 +21,7 @@ if os.path.exists("games.pickle"):
     with open('games.pickle', 'rb') as file:
         games = pickle.load(file)
 else:
-    games = [Game("Game 1", 10, 4, 12, False)]
+    games = [Game(Player("Test player"), 10, 4, 12, False)]
 
 
 @app.context_processor
@@ -37,22 +38,23 @@ def home():
 def stats():
     games_won = 0
     guesses = 0
-    games_by_name = {}
+    games_by_player = {}
     for g in games:
         if g.has_won():
             games_won += 1
         guesses += len(g.guesses)
-        if g.nickname not in games_by_name:
-            games_by_name[g.nickname] = []
-        games_by_name[g.nickname].append(g)
-    return render_template('stats.html', games=games, games_won=games_won, guesses=guesses, games_by_name=games_by_name)
+        if g.player not in games_by_player:
+            games_by_player[g.player] = []
+        games_by_player[g.player].append(g)
+
+    return render_template('stats.html', games=games, games_won=games_won, guesses=guesses, games_by_player=games_by_player)
 
 
 @app.route('/create', methods=['GET', 'POST'])
 def create():
     form = GameCreateForm(request.form)
     if request.method == 'POST' and form.validate():
-        new_game = Game(form.name.data, form.guesses.data,
+        new_game = Game(Player(form.name.data), form.guesses.data,
                         form.positions.data, form.colors.data, form.double_colors.data)
         games.append(new_game)
         flash('Game created')
